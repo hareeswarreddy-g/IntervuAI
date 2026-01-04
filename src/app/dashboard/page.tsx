@@ -53,7 +53,7 @@ export default function DashboardPage() {
                 const querySnapshot = await getDocs(q);
                 const fetchedInterviews: InterviewSession[] = [];
 
-                querySnapshot.forEach((doc) => {
+                querySnapshot.forEach((doc: any) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const data = doc.data() as any;
                     fetchedInterviews.push({
@@ -192,7 +192,7 @@ export default function DashboardPage() {
                                         No interviews found. Start your first session!
                                     </div>
                                 ) : (
-                                    interviews.map((session) => (
+                                    interviews.map((session: InterviewSession) => (
                                         <Link href={`/dashboard/${session.id}`} key={session.id} className="block">
                                             <div className="flex items-center justify-between p-4 rounded-lg bg-zinc-900/40 border border-white/5 hover:border-white/10 hover:bg-zinc-800/40 transition-all cursor-pointer">
                                                 <div>
@@ -220,7 +220,33 @@ export default function DashboardPage() {
                                 <CardTitle>Recent Activity</CardTitle>
                             </CardHeader>
                             <CardContent className="h-[350px]">
-                                <PerformanceChart />
+                                <PerformanceChart data={interviews
+                                    .filter((i: InterviewSession) => i.status === "Completed")
+                                    .slice(0, 10) // Last 10 interviews
+                                    .reverse() // Chronological order
+                                    .map((i: InterviewSession) => {
+                                        let tech = 0;
+                                        let comm = 0;
+                                        let count = 0;
+                                        i.answers.forEach((a) => {
+                                            if (a.evaluation) {
+                                                tech += a.evaluation.technicalScore || 0;
+                                                comm += a.evaluation.communicationScore || 0;
+                                                count++;
+                                            }
+                                        });
+                                        const date = i.createdAt instanceof Date
+                                            ? i.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                                            : "N/A";
+
+                                        // Calculate average score on 0-10 scale
+                                        const score = count ? parseFloat(((tech + comm) / (count * 2)).toFixed(1)) : 0;
+
+                                        return {
+                                            date,
+                                            score
+                                        };
+                                    })} />
                             </CardContent>
                         </Card>
                         <Card className="glass-card col-span-1 min-h-[400px]">
