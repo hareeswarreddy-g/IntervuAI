@@ -5,7 +5,7 @@ export type JobRole =
     | "Data Scientist" | "Data Analyst" | "Digital Marketer" | "Business Analyst"
     | "Project Manager" | "HR Manager" | "Sales Representative" | "Content Strategist";
 
-export type ExperienceLevel = "Fresher" | "Intermediate" | "Advanced";
+export type ExperienceLevel = "Student" | "Fresher" | "Intermediate" | "Advanced";
 export type InterviewType = "Technical" | "Behavioral" | "System Design" | "Managerial" | "Case Study" | "HR";
 
 export interface InterviewConfig {

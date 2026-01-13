@@ -32,7 +32,9 @@ export async function POST(req: NextRequest) {
 
         // Difficulty-specific guidelines
         let difficultyGuidelines = "";
-        if (difficulty === "Fresher") {
+        if (difficulty === "Student") {
+            difficultyGuidelines = "IMPORTANT: Treat the candidate as a 1st-year student who has just started learning programming. Focus on absolute basics, syntax, and simple logic. Avoid complex algorithms or frameworks. Keep the question VERY SHORT (max 1-2 sentences) and simple. The expected key points must also be very concise and basic.";
+        } else if (difficulty === "Fresher") {
             difficultyGuidelines = "IMPORTANT: Focus on basic concepts, definitions, and avoiding complex scenarios.";
         } else if (difficulty === "Intermediate") {
             difficultyGuidelines = "Focus on practical application, real-world scenarios, and some problem-solving.";

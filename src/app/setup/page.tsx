@@ -143,7 +143,7 @@ export default function SetupPage() {
                         <div className="space-y-4">
                             <label className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Experience Level</label>
                             <div className="flex gap-2 p-1 bg-zinc-900/60 rounded-xl border border-white/5">
-                                {(["Fresher", "Intermediate", "Advanced"] as ExperienceLevel[]).map((level) => (
+                                {(["Student", "Fresher", "Intermediate", "Advanced"] as ExperienceLevel[]).map((level) => (
                                     <button
                                         key={level}
                                         onClick={() => setConfig({ ...config, experienceLevel: level })}
